@@ -1,6 +1,8 @@
 ﻿@page "/login"
 @using ModeladoTTHH.Models
+@using ModeladoTTHH.Services
 @layout NoLayout
+@inject IEmisorService EmisorService
 
 @if (_listaEmisores is null)
 {
@@ -71,10 +73,12 @@ else
 
     private UsuarioDto _usuario = new UsuarioDto();
 
-    private IEnumerable<Emisor> _listaEmisores = new List<Emisor>()
+    private IEnumerable<Emisor> _listaEmisores;
+
+    protected override async Task OnInitializedAsync()
     {
-        new Emisor() { Codigo = 1, NombreEmisor = "Pepito", Ruc = "1727575936" }
-    };
+        _listaEmisores = await EmisorService.ObtenerEmisores();
+    }
 
     protected void TryLoginUser()
     {
