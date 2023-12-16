@@ -1,0 +1,34 @@
+﻿@using ModeladoTTHH.Models
+@page "/emisores"
+
+<h3>Emisores</h3>
+
+@if (_emisores is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var emisor in _emisores)
+        {
+            <tr>
+                <td>@emisor.NombreEmisor</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Emisor> _emisores = new List<Emisor>()
+    {
+        new Emisor() {Codigo = 1, NombreEmisor = "Pepito", Ruc = "1727575936"}
+    };
+}

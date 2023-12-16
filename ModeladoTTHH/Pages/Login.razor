@@ -1,0 +1,76 @@
+﻿@page "/login"
+@using ModeladoTTHH.Models
+@layout NoLayout
+
+@if (_listaEmisores is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                <h1 class="text-start">Login</h1>
+                <EditForm Model="@_usuario">
+                    <h2>Bienvenido de vuelta</h2>
+                    <hr/>
+                    <div class="form-floating mb-3">
+                        <input @bind="_usuario.Usuario" class="form-control" placeholder="name@example.com"/>
+                        <label class="form-label">Email</label>
+                        <span class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Empresas</label>
+
+                        <select id="empresas" class="form-control" autocomplete="Empresa" placeholder="Empresa">
+                            @foreach (var emisor in _listaEmisores)
+                            {
+                                <option value="@emisor.Codigo">@emisor.Codigo: @emisor.NombreEmisor</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" @bind="_usuario.Password" class="form-control" placeholder="password"/>
+                        <label class="form-label">Password</label>
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="mt-2">
+                        <NavLink href="forgotPassword">
+                            Olvidaste tu contraseña?
+                        </NavLink>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <NavLink href="login" class="btn btn-primary">
+                            Login
+                        </NavLink>
+                        <NavLink class="btn btn-primary" href="signUp">
+                            Sign Up
+                        </NavLink>
+                    </div>
+                    <div class="mt-2">
+                        <NavLink href="signUp">
+                            Registrate como nuevo usuario
+                        </NavLink>
+                    </div>
+                </EditForm>
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                <img src="/login.svg" alt="LoginImage" class="img-fluid w-50">
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    private UsuarioDto _usuario = new UsuarioDto();
+
+    private IEnumerable<Emisor> _listaEmisores = new List<Emisor>()
+    {
+        new Emisor() { Codigo = 1, NombreEmisor = "Pepito", Ruc = "1727575936" }
+    };
+
+}
