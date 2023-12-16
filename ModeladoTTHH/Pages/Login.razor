@@ -12,12 +12,15 @@ else
         <div class="row vh-100">
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                 <h1 class="text-start">Login</h1>
-                <EditForm Model="@_usuario">
+                <EditForm Model="@_usuario" OnValidSubmit="TryLoginUser">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary/>
+                    
                     <h2>Bienvenido de vuelta</h2>
                     <hr/>
                     <div class="form-floating mb-3">
-                        <input @bind="_usuario.Usuario" class="form-control" placeholder="name@example.com"/>
-                        <label class="form-label">Email</label>
+                        <input @bind="_usuario.Usuario" class="form-control" placeholder="1234"/>
+                        <label class="form-label">Usuario</label>
                         <span class="text-danger"></span>
                     </div>
 
@@ -43,9 +46,9 @@ else
                         </NavLink>
                     </div>
                     <div class="d-grid gap-2">
-                        <NavLink href="login" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary">
                             Login
-                        </NavLink>
+                        </button>
                         <NavLink class="btn btn-primary" href="signUp">
                             Sign Up
                         </NavLink>
@@ -73,4 +76,8 @@ else
         new Emisor() { Codigo = 1, NombreEmisor = "Pepito", Ruc = "1727575936" }
     };
 
+    protected void TryLoginUser()
+    {
+        
+    }
 }
