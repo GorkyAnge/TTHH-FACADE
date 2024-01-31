@@ -1,9 +1,9 @@
 ﻿@page "/login"
+@using ModeladoTTHH.Facades;
 @using ModeladoTTHH.Models
 @using ModeladoTTHH.Services
 @layout NoLayout
-@inject IEmisorService EmisorService
-@inject NavigationManager NavigationManager
+@inject LoginFacade LoginFacade
 
 @if (_listaEmisores is null)
 {
@@ -16,20 +16,19 @@ else
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                 <h1 class="text-start">Login</h1>
                 <EditForm Model="@_usuario" OnValidSubmit="TryLoginUser">
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
 
                     <h2>Bienvenido de vuelta</h2>
-                    <hr/>
+                    <hr />
                     <div class="form-floating mb-3">
-                        <input @bind="_usuario.Usuario" class="form-control" placeholder="1234"/>
+                        <input @bind="_usuario.Usuario" class="form-control" placeholder="1234" />
                         <label class="form-label">Usuario</label>
                         <span class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label>Empresas</label>
-
                         <select id="empresas" class="form-control" autocomplete="Empresa" placeholder="Empresa">
                             @foreach (var emisor in _listaEmisores)
                             {
@@ -41,7 +40,7 @@ else
                     <div class="form-floating mb-3">
                         <input type="password" @bind="_usuario.Password"
                                @oninput="e => _usuario.Password = e.Value.ToString()" class="form-control"
-                               placeholder="password"/>
+                               placeholder="password" />
                         <label class="form-label">Password</label>
                         <span class="text-danger"></span>
                     </div>
@@ -80,12 +79,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _listaEmisores = await EmisorService.ObtenerEmisores();
+        _listaEmisores = await LoginFacade.ObtenerEmisores();
     }
 
     protected void TryLoginUser()
     {
-        NavigationManager.NavigateTo("/");
+        LoginFacade.NavigateToHome();
     }
 
 }

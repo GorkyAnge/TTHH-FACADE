@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using ModeladoTTHH.Facades;
 using ModeladoTTHH.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddServerSideBlazor().AddCircuitOptions(options =>
 });
 builder.Services.AddHttpClient<IEmisorService, EmisorService>(
     client => { client.BaseAddress = new Uri("http://apiservicios.ecuasolmovsa.com:3009"); });
+builder.Services.AddScoped<LoginFacade>();
 
 var app = builder.Build();
 
