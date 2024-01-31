@@ -3,6 +3,7 @@
 @using ModeladoTTHH.Services
 @layout NoLayout
 @inject IEmisorService EmisorService
+@inject NavigationManager NavigationManager
 
 @if (_listaEmisores is null)
 {
@@ -15,9 +16,9 @@ else
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                 <h1 class="text-start">Login</h1>
                 <EditForm Model="@_usuario" OnValidSubmit="TryLoginUser">
-                    <DataAnnotationsValidator />
+                    <DataAnnotationsValidator/>
                     <ValidationSummary/>
-                    
+
                     <h2>Bienvenido de vuelta</h2>
                     <hr/>
                     <div class="form-floating mb-3">
@@ -38,7 +39,9 @@ else
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="password" @bind="_usuario.Password" class="form-control" placeholder="password"/>
+                        <input type="password" @bind="_usuario.Password"
+                               @oninput="e => _usuario.Password = e.Value.ToString()" class="form-control"
+                               placeholder="password"/>
                         <label class="form-label">Password</label>
                         <span class="text-danger"></span>
                     </div>
@@ -82,6 +85,7 @@ else
 
     protected void TryLoginUser()
     {
-        
+        NavigationManager.NavigateTo("/");
     }
+
 }
